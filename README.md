@@ -2,7 +2,7 @@
 
 A modern AI-powered chat application built with Next.js and OpenRouter AI. Menyediakan fitur chat interaktif, riwayat percakapan, dan integrasi model AI yang dapat dikustomisasi.
 
-![Preview Application](./psatir.png)
+![Preview Application](https://images.unsplash.com/photo-1651559038978-7079d2300016?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 
 ## 🛠 Tech Stack
 
@@ -24,7 +24,7 @@ A modern AI-powered chat application built with Next.js and OpenRouter AI. Menye
 1. **Clone Repository**
 
    ```bash
-   git clone https://github.com/RiskiManik/Pstatier-ai.git
+   git clone https://github.com/RiskiManik/Psatier-ai.git
    cd repo-name
    ```
 
@@ -80,7 +80,7 @@ Kontribusi terbuka! Berikut langkah-langkahnya:
 4. Push ke branch (`git push origin feat/namafitur`)
 5. Buat Pull Request
 
-**Laporkan bug** melalui [Issues](https://github.com/RiskiManik/Pstatier-ai/issues)
+**Laporkan bug** melalui [Issues](https://github.com/RiskiManik/Psatier-ai/issues)
 
 ## ⚠️ Known Issues
 

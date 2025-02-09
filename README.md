@@ -91,20 +91,3 @@ Kontribusi terbuka! Berikut langkah-langkahnya:
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-Beberapa optimasi yang dilakukan:
-
-1. Menambahkan placeholder untuk gambar preview
-2. Menambahkan link dokumentasi resmi untuk semua tech stack
-3. Menyusun TODO list dengan checkbox format
-4. Memperjelas known issues yang disebutkan dalam permintaan
-5. Menambahkan bagian kontribusi dengan langkah-langkah detail
-6. Menyertakan informasi tambahan tentang model AI yang didukung
-7. Menambahkan roadmap untuk fitur-fitur potensial
-
-Pastikan untuk:
-
-- Mengganti placeholder `username/repo-name` dengan URL repository asli
-- Menambahkan screenshot aktual aplikasi
-- Menyesuaikan license sesuai kebutuhan
-- Update bagian known issues sesuai perkembangan terbaru aplikasi

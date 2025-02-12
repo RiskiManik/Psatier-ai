@@ -6,10 +6,10 @@ export async function POST(req: NextRequest) {
   const { messages } = await req.json();
   const searchParams = req.nextUrl.searchParams;
   const model =
-    searchParams.get("model") || "qwen/qwen2.5-vl-72b-instruct:free";
+    searchParams.get("model") ?? "qwen/qwen2.5-vl-72b-instruct:free";
 
   const openrouter = createOpenRouter({
-    apiKey: process.env.OPENROUTER_API_KEY,
+    apiKey: process.env.OPENROUTER_API_KEY!,
   });
 
   const systemPrompt = {

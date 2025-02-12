@@ -3,7 +3,8 @@
 import { useChat, type UseChatOptions } from "ai/react";
 import { Chat } from "@/components/ui/chat";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { getChatHistory } from "@/lib/indexDB";
 
 type ChatDemoProps = {
   initialMessages?: UseChatOptions["initialMessages"];
@@ -11,11 +12,21 @@ type ChatDemoProps = {
 
 export function ChatDemo(props: ChatDemoProps) {
   const router = useRouter();
+  const [idMessage, setIdMessage] = useState("");
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const model = searchParams.get("model");
-  const id = searchParams.get("id");
+  useEffect(() => {
+    async function getChat() {
+      if (pathname !== "/") return;
+      const data = await getChatHistory();
+      const id = data[data.length - 1].id;
+      setIdMessage(id);
+    }
+
+    getChat();
+  }, [pathname]);
 
   const suggestions = useMemo(
     () => [
@@ -37,24 +48,6 @@ export function ChatDemo(props: ChatDemoProps) {
     [spString]
   );
 
-  const handleResponse = useCallback(
-    (response: Response) => {
-      if (response.ok && pathname === "/" && !id) {
-        router.replace(
-          `${pathname}?${createQueryString("id", Date.now().toString())}`
-        );
-      }
-    },
-    [pathname, id, router, createQueryString]
-  );
-
-  // Memoisasi callback onFinish
-  const handleFinish = useCallback(() => {
-    if (pathname === "/" && id) {
-      router.push(`/chat/${id}`);
-    }
-  }, [pathname, id, router]);
-
   const {
     messages,
     input,
@@ -65,9 +58,23 @@ export function ChatDemo(props: ChatDemoProps) {
     isLoading,
   } = useChat({
     ...props,
-    api: `/api/chat?${createQueryString("model", model || "")}`,
-    onResponse: handleResponse,
-    onFinish: handleFinish,
+    api: `/api/chat?${createQueryString(
+      "model",
+      model || "qwen/qwen2.5-vl-72b-instruct:free"
+    )}`,
+    // onResponse: (response: Response) => {
+    //   if (response.ok && pathname === "/" && !id) {
+    //     router.push(
+    //       `${pathname}?${createQueryString("id", Date.now().toString())}`
+    //     );
+    //   }
+    // },
+
+    onFinish: () => {
+      if (pathname === "/") {
+        router.push("/chat/" + idMessage);
+      }
+    },
   });
 
   return (

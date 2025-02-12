@@ -20,6 +20,7 @@ export function ChatDemo(props: ChatDemoProps) {
   useEffect(() => {
     async function getChat() {
       if (pathname !== "/") return;
+      setIdMessage("");
       const data = await getChatHistory();
       const id = data[data.length - 1].id;
       setIdMessage(id);

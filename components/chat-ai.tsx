@@ -2,32 +2,30 @@
 
 import { useChat, type UseChatOptions } from "ai/react";
 import { Chat } from "@/components/ui/chat";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getChatHistory } from "@/lib/indexDB";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useMemo } from "react";
 
 type ChatDemoProps = {
   initialMessages?: UseChatOptions["initialMessages"];
 };
 
 export function ChatDemo(props: ChatDemoProps) {
-  const router = useRouter();
-  const [idMessage, setIdMessage] = useState("");
-  const pathname = usePathname();
+  // const router = useRouter();
+  // const [idMessage, setIdMessage] = useState("");
+  // const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const model = searchParams.get("model");
-  useEffect(() => {
-    async function getChat() {
-      if (pathname !== "/") return;
-      setIdMessage("");
-      const data = await getChatHistory();
-      const id = data[data.length - 1].id;
-      setIdMessage(id);
-    }
+  // useEffect(() => {
+  //   async function getChat() {
+  //     if (pathname !== "/") return;
+  //     const data = await getChatHistory();
+  //     const id = data[data.length - 1].id;
+  //     setIdMessage(id);
+  //   }
 
-    getChat();
-  }, [pathname]);
+  //   getChat();
+  // }, [pathname]);
 
   const suggestions = useMemo(
     () => [
@@ -71,11 +69,12 @@ export function ChatDemo(props: ChatDemoProps) {
     //   }
     // },
 
-    onFinish: () => {
-      if (pathname === "/") {
-        router.push("/chat/" + idMessage);
-      }
-    },
+    // onFinish: () => {
+    //   if (pathname === "/") {
+    //     router.push("/chat/" + idMessage);
+    //     setIdMessage("");
+    //   }
+    // },
   });
 
   return (

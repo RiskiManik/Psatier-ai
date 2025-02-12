@@ -11,7 +11,7 @@ import {
   createChatHistory,
   updateChatHistory,
 } from "@/lib/indexDB";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useCallback, useEffect } from "react";
 
@@ -34,27 +34,28 @@ export function MessageList({
   messageOptions,
   isGenerating,
 }: MessageListProps) {
-  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const params = useParams<{ id: string }>();
-  const id = searchParams.get("id") || params.id;
+  const id = params.id ?? Date.now().toString();
 
   const setHistory = useCallback(async () => {
     const newChat: ChatHistory = {
-      id: id || Date.now().toString(),
+      id: id,
       messages: messages as ChatMessageDB[],
     };
 
     try {
-      if (id) {
+      if (params.id) {
         await updateChatHistory(newChat);
       } else {
         await createChatHistory(newChat);
+        router.push(`/chat/${id}`);
       }
     } catch (error) {
       console.error("Error saving chat history:", error);
     }
-  }, [messages, id]);
+  }, [messages, params.id, router, id]);
 
   useEffect(() => {
     if (!isGenerating) {
